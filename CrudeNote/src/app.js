@@ -37,7 +37,7 @@ const title=req.body.title
 
 notes[index].title=title
 res.status(200).json({
-    message : "Note Update"
+    message : "Note Update successfully"
 })
 
   })
