@@ -4,7 +4,7 @@ const bcrypt=require('bcryptjs')
 async function userregistr(req,res) {
     const {userName,email,password,role="user"}=req.body
 
-    const userAlredyExist=await userModel.findone({
+    const userAlredyExist=await userModel.findOne({
         $or:[
             {userName},
             {email}
