@@ -1,7 +1,7 @@
 const userModel=require('../models/user.model')
 const jwt=require('jsonwebtoken')
 const bcrypt=require('bcryptjs')
-async function registr(req,res) {
+async function userregistr(req,res) {
     const {userName,email,password,role="user"}=req.body
 
     const userAlredyExist=await userModel.findone({
@@ -43,4 +43,4 @@ res.status(201).json({
     
 }
 
-module.exports={registr};
+module.exports={userregistr};
