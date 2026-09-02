@@ -13,7 +13,7 @@ async function userregistr(req,res) {
 
     if(userAlredyExist){
         return res.status(409).json({
-            message:"user alredy exist"
+            message:"user alredy exist please try another"
         })
     }
     const hash=await bcrypt.hash(password,10)
