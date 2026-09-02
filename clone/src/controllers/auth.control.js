@@ -1,6 +1,8 @@
 const userModel=require('../models/user.model')
 const jwt=require('jsonwebtoken')
 const bcrypt=require('bcryptjs')
+
+
 async function userregistr(req,res) {
     const {userName,email,password,role="user"}=req.body
 
@@ -43,4 +45,45 @@ res.status(201).json({
     
 }
 
-module.exports={userregistr};
+
+async function userLogin(req,res){
+    const{userName,email,password}=req.body
+
+    const user=await userModel.findOne({
+        $or:[
+            {userName},
+            {email}
+        ]
+    })
+    if(!user){
+        return res.status(401).json({
+            message:"invalide credential"
+        })
+    }
+
+    const isPassword= await bcrypt.compare(password,user.password)
+
+    if(!isPassword){
+        return res.status(401).json({
+            message:"invalide credential"
+        })
+    }
+    const token=jwt.sign({
+        id:user._id,
+            role:user.role
+        },process.env.JWT_SECRET
+    )
+    res.cookie("token",token)
+
+    res.status(200).json({
+        message:"Login succesfully",
+        user:{
+            id:user._id,
+            userName:user.userName,
+            email:user.email,
+            role:user.role
+        }
+    })
+}
+
+module.exports={userregistr,userLogin};
