@@ -1,7 +1,7 @@
 const express=require("express")
  const cookieParser=require("cookie-parser")
 const authRoute=require("./routes/auth.routes")
-
+const musicsRoute=require("./routes/musics.routes")
 const app=express()
 
 app.use(express.json())
