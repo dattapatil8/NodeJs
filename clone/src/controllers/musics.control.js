@@ -14,12 +14,12 @@ async function createMusic(req, res) {
 
     try {
 
-        // Verify token
+    
         const decode = jwt.verify(token, process.env.JWT_SECRET);
 
         console.log("DECODE:", decode);
 
-        // Only artist can upload music
+        
         if (decode.role !== "artist") {
             return res.status(403).json({
                 message: "You don't have access to create music"
