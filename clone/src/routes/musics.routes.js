@@ -1,5 +1,6 @@
 const express=require("express")
 const musicController=require("../controllers/musics.control")
+const authMeddleware=require("../meddleware/auth.meddleware")
 const multer=require('multer')
 const upload=multer({
     storage:multer.memoryStorage()
@@ -7,8 +8,10 @@ const upload=multer({
 
 const router=express.Router()
 
-router.post("/upload",upload.single("music"),musicController.createMusic)
-router.post("/albom",musicController.createAlbom)
+router.post("/upload",authMeddleware.authArtist,upload.single("music"),musicController.createMusic)
+router.post("/albom",authMeddleware.authArtist,musicController.createAlbom)
+
+router.get("/",musicController.getAllmusic)
 
 
 module.exports=router;
