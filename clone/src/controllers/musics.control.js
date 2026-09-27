@@ -73,7 +73,7 @@ res.status(200).json({
     }
 async function getAllalbum(req,res) {
 
-    const albums=await albomModel.find().populate("user","userName email").populate("music")
+    const albums=await albomModel.find().populate("artist","userName email").populate("musics")
 
     res.status(200).json({
     message:"album Fetchd Successfuly",
